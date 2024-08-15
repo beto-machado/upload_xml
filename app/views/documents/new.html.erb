@@ -1,0 +1,5 @@
+<h1>Upload de Arquivo XML</h1>
+<%= form_with(model: @xml_file, local: true) do |form| %>
+  <%= form.file_field :file %>
+  <%= form.submit 'Enviar' %>
+<% end %>

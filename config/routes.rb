@@ -5,9 +5,13 @@ Sidekiq::Web.use Rack::Auth::Basic do |username, password|
 end
 
 Rails.application.routes.draw do
-  devise_for :users
+  root "documents#new"
+  get "documents/create"
 
-  # root "posts#index"
+  get "reports/show"
+  get "documents/new"
+  
+  devise_for :users
   
   mount Sidekiq::Web, at: "sidekiq"
 end

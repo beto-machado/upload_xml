@@ -1,0 +1,62 @@
+<!-- app/views/reports/show.html.erb -->
+<h1>Relatório do Documento Fiscal</h1>
+
+<h2>Dados do Documento Fiscal</h2>
+<p>
+  <strong>Número de Série:</strong>
+  <%= @xml_document.serie %><br>
+  <strong>Número da Nota Fiscal:</strong>
+  <%= @xml_document.nNF %><br>
+  <strong>Data e Hora de Emissão:</strong>
+  <%= @xml_document.dhEmi %><br>
+  <strong>Emitente:</strong>
+  <%= JSON.parse(@xml_document.emit).inspect %><br>
+  <strong>Destinatário:</strong>
+  <%= JSON.parse(@xml_document.dest).inspect %><br>
+</p>
+
+<h2>Produtos Listados</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>NCM</th>
+      <th>CFOP</th>
+      <th>Unidade</th>
+      <th>Quantidade</th>
+      <th>Valor Unitário</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% JSON.parse(@xml_document.products).each do |product| %>
+      <tr>
+        <td><%= product['xProd'] %></td>
+        <td><%= product['NCM'] %></td>
+        <td><%= product['CFOP'] %></td>
+        <td><%= product['uCom'] %></td>
+        <td><%= product['qCom'] %></td>
+        <td><%= product['vUnCom'] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Impostos Associados</h2>
+<p>
+  <strong>Valor do ICMS:</strong>
+  <%= JSON.parse(@xml_document.tax)['vICMS'] %><br>
+  <strong>Valor do IPI:</strong>
+  <%= JSON.parse(@xml_document.tax)['vIPI'] %><br>
+  <strong>Valor do PIS:</strong>
+  <%= JSON.parse(@xml_document.tax)['vPIS'] %><br>
+  <strong>Valor do COFINS:</strong>
+  <%= JSON.parse(@xml_document.tax)['vCOFINS'] %><br>
+</p>
+
+<h2>Totalizadores</h2>
+<p>
+  <strong>Total Produtos:</strong>
+  <%= JSON.parse(@xml_document.products).sum { |p| p['qCom'] * p['vUnCom'] } %><br>
+  <strong>Total Impostos:</strong>
+  <%= JSON.parse(@xml_document.tax).values.sum %><br>
+</p>
