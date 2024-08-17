@@ -1,0 +1,33 @@
+<%= link_to 'Criar Documento', new_document_path, class: 'btn btn-primary' %>
+
+<h1>Documentos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Série</th>
+      <th>Número da Nota Fiscal</th>
+      <th>Data de Emissão</th>
+      <th>Emitente</th>
+      <th>Destinatário</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @xml_documents.each do |xml_document| %>
+      <tr>
+        <td><%= xml_document.id %></td>
+        <td><%= xml_document.serie %></td>
+        <td><%= xml_document.nNF %></td>
+        <td><%= xml_document.dhEmi %></td>
+        <td><%= JSON.parse(xml_document.emit)["xNome"] %></td>
+        <td><%= JSON.parse(xml_document.dest)["xNome"] %></td>
+        <td>
+          <%= link_to 'Mostrar', document_report_path(xml_document.document_id, xml_document.id) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
