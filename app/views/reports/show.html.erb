@@ -1,4 +1,3 @@
-<!-- app/views/reports/show.html.erb -->
 <h1>Relatório do Documento Fiscal</h1>
 
 <h2>Dados do Documento Fiscal</h2>
@@ -9,10 +8,31 @@
   <%= @xml_document.nNF %><br>
   <strong>Data e Hora de Emissão:</strong>
   <%= @xml_document.dhEmi %><br>
-  <strong>Emitente:</strong>
-  <%= JSON.parse(@xml_document.emit).inspect %><br>
-  <strong>Destinatário:</strong>
-  <%= JSON.parse(@xml_document.dest).inspect %><br>
+</p>
+
+<p>
+  <% emit = JSON.parse(@xml_document.emit) %>
+  <strong>Eminente:</strong> <%= emit["xNome"] %><br>
+  <strong>CNPJ:</strong> <%= emit["CNPJ"] %><br>
+  <strong>CNPJ:</strong> <%= emit["fone"] %><br>
+  <strong>Endereço:</strong> <%= emit["enderEmit"]["xLgr"]%>, <%= emit["enderEmit"]["nro"] %>, <%= emit["enderEmit"]["xBairro"] %><br>
+  <strong>Cidade:</strong> <%= emit["enderEmit"]["xMun"] %><br>
+  <strong>Estado:</strong> <%= emit["enderEmit"]["UF"] %><br>
+  <strong>CEP:</strong> <%= emit["enderEmit"]["CEP"] %><br>
+  <strong>País:</strong> <%= emit["enderEmit"]["xPais"] %><br>
+  <strong>Inscrição Estadual</strong> <%= emit["IE"] %><br>
+</p>
+
+<p>
+  <% dest = JSON.parse(@xml_document.dest) %>
+  <strong>Destinatário:</strong> <%= dest["xNome"] %><br>
+  <strong>CNPJ:</strong> <%= dest["CNPJ"] %><br>
+  <strong>Endereço:</strong> <%= dest["enderDest"]["xLgr"]%>, <%= dest["enderDest"]["xBairro"] %><br>
+  <strong>Cidade:</strong> <%= dest["enderDest"]["xMun"] %><br>
+  <strong>Estado:</strong> <%= dest["enderDest"]["UF"] %><br>
+  <strong>CEP:</strong> <%= dest["enderDest"]["CEP"] %><br>
+  <strong>País:</strong> <%= dest["enderDest"]["xPais"] %><br>
+  <strong>Inscrição Estadual</strong> <%= dest["indIEDest"] %><br>
 </p>
 
 <h2>Produtos Listados</h2>
@@ -25,10 +45,13 @@
       <th>Unidade</th>
       <th>Quantidade</th>
       <th>Valor Unitário</th>
+      <th>ICMS</th>
+      <th>IPI</th>
     </tr>
   </thead>
   <tbody>
-    <% JSON.parse(@xml_document.products).each do |product| %>
+    <% products = JSON.parse(@xml_document.products) %>
+    <% products.each do |product| %>
       <tr>
         <td><%= product['xProd'] %></td>
         <td><%= product['NCM'] %></td>
@@ -36,27 +59,18 @@
         <td><%= product['uCom'] %></td>
         <td><%= product['qCom'] %></td>
         <td><%= product['vUnCom'] %></td>
+        <td><%= product['imposto']['ICMS'] %></td>
+        <td><%= product['imposto']['IPI'] %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<h2>Impostos Associados</h2>
 <p>
-  <strong>Valor do ICMS:</strong>
-  <%= JSON.parse(@xml_document.tax)['vICMS'] %><br>
-  <strong>Valor do IPI:</strong>
-  <%= JSON.parse(@xml_document.tax)['vIPI'] %><br>
-  <strong>Valor do PIS:</strong>
-  <%= JSON.parse(@xml_document.tax)['vPIS'] %><br>
-  <strong>Valor do COFINS:</strong>
-  <%= JSON.parse(@xml_document.tax)['vCOFINS'] %><br>
+  <strong>Total Valor dos Produtos:</strong>
+  <%= products.sum { |p| (p['qCom'].to_f * p['vUnCom'].to_f).round(2) } %><br>
+  <strong>Total ICMS:</strong>
+  <%= products.sum { |p| (p['imposto']['ICMS'].to_f rescue 0.0) }.round(2) %><br>
+  <%= products.sum { |p| (p['imposto']['IPI'].to_f rescue 0.0) }.round(2) %><br>
 </p>
 
-<h2>Totalizadores</h2>
-<p>
-  <strong>Total Produtos:</strong>
-  <%= JSON.parse(@xml_document.products).sum { |p| p['qCom'] * p['vUnCom'] } %><br>
-  <strong>Total Impostos:</strong>
-  <%= JSON.parse(@xml_document.tax).values.sum %><br>
-</p>

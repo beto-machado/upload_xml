@@ -6,11 +6,10 @@ end
 
 Rails.application.routes.draw do
   root "documents#new"
-  get "documents/create"
-
-  get "reports/show"
-  get "documents/new"
   
+  resources :documents, only: [:new, :create]
+  resources :reports, only: [:show]
+
   devise_for :users
   
   mount Sidekiq::Web, at: "sidekiq"
