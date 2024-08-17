@@ -90,14 +90,23 @@ Este projeto é uma aplicação para upload e processamento de arquivos XML de n
     rails server
     ```
 
-5. Em outro terminal, inicie o Redis:
+6. Em outro terminal, inicie o Redis:
     ```bash
     redis-server
     ```
 
-6. Em outro terminal, inicie o Sidekiq:
+7. Em outro terminal, inicie o Sidekiq:
     ```bash
     bundle exec sidekiq
+    ```
+
+8. No navegador, acesse:
+    ```bash
+    http://localhost:3000
+    ```
+9. No navegador, para acessar o sidekiq web passando as credenciais username= admin e passowrd= password :
+    ```bash
+    http://localhost:3000/sidekiq
     ```
 
 ## Uso

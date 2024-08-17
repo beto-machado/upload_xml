@@ -83,6 +83,5 @@ test:
 #
 production:
   <<: *default
-  database: upload_xml_production
-  username: upload_xml
-  password: <%= ENV["UPLOAD_XML_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
+
