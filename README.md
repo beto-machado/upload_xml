@@ -1,7 +1,7 @@
 # Upload de Arquivo XML (Nota Fiscal)
 
 ## Descrição
-Este projeto é uma aplicação para upload e processamento de arquivos XML de notas fiscais. Ele permite que os usuários façam login, façam upload de arquivos XML, processem esses arquivos em segundo plano e gerem relatórios detalhados com base nas informações extraídas dos arquivos XML e podem exportar o relatório gerado.
+Este projeto é uma aplicação para upload e processamento de arquivos XML de notas fiscais. Ele permite que os usuários façam login, façam upload de arquivos XML, processem esses arquivos em segundo plano e gerem relatórios detalhados com base nas informações extraídas dos arquivos XML, podendo filtrar os relatórios para facilitar a busca, e também podendo exportar o relatório gerado. 
 
 ## Funcionalidades
 
