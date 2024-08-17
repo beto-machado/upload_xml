@@ -3,13 +3,13 @@ require 'nokogiri'
 class XmlService
   class << self
 
-      def call(file_content)
-        process_xml(file_content)
+      def call(file_content, document_id)
+        process_xml(file_content, document_id)
       end
 
     private
 
-    def process_xml(file_content)
+    def process_xml(file_content, document_id)
       xml = Nokogiri::XML(file_content)
       namespace = { 'nfe' => 'http://www.portalfiscal.inf.br/nfe' }
 
@@ -46,6 +46,7 @@ class XmlService
         emit: extract_data(emit).to_h.to_json,
         dest: extract_data(dest).to_h.to_json,
         products: products.to_json,
+        document_id: document_id
       )
     rescue ActiveRecord::RecordInvalid => e
       Rails.logger.error("Failed to save XmlDocument: #{e.message}")

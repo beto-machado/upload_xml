@@ -1,6 +1,5 @@
 class DocumentsController < ApplicationController
-
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
   def new
     @document = Document.new
   end
@@ -8,8 +7,13 @@ class DocumentsController < ApplicationController
   def create
     @document = Document.new(document_params)
     if @document.save
-      ProcessDocumentJob.perform_later(@document.id)
-      redirect_to report_path(@document.id), notice: 'Arquivo enviado e processamento iniciado.'
+      ProcessDocumentJob.perform_now(@document.id)
+      xml_document = @document.xml_document
+      if xml_document.present?
+        redirect_to document_report_path(@document.id, xml_document.id)
+      else
+        render :new
+      end
     else
       render :new
     end
