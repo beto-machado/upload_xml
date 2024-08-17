@@ -4,10 +4,10 @@ class CreateXmlDocuments < ActiveRecord::Migration[7.1]
       t.string :serie
       t.string :nNF
       t.datetime :dhEmi
-      t.text :emit
-      t.text :dest
-      t.text :products
-      t.text :tax
+      t.jsonb :emit, default: {}
+      t.jsonb :dest, default: {}
+      t.jsonb :products, default: {}
+      t.jsonb :tax, default: {}
 
       t.timestamps
     end
