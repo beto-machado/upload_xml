@@ -13,10 +13,9 @@
   <body>
     <header>
       <nav>
-        <%= link_to 'Início', root_path, class: 'btn btn-primary' %>
-        <%= link_to 'Criar Documento', new_document_path, class: 'btn btn-primary' %>
-
         <% if user_signed_in? %>
+          <%= link_to 'Início', root_path, class: 'btn btn-primary' %>
+          <%= link_to 'Criar Documento', new_document_path, class: 'btn btn-primary' %>
           <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
         <% end %>
       </nav>
