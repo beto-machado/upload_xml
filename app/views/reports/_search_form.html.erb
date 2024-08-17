@@ -1,0 +1,25 @@
+<%= search_form_for @q, url: reports_path, method: :get, html: { class: 'form-container' } do |f| %>
+  <div class="form-group">
+    <%= f.label :serie_cont, 'Número de Série' %>
+    <%= f.text_field :serie_cont, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :nNF_cont, 'Número da Nota Fiscal' %>
+    <%= f.text_field :nNF_cont, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :dhEmi_gteq, 'Data de Emissão (De)' %>
+    <%= f.date_field :dhEmi_gteq, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :dhEmi_lteq, 'Data de Emissão (Até)' %>
+    <%= f.date_field :dhEmi_lteq, class: 'form-control' %>
+  </div>
+
+  <div class="submit-button">
+    <%= f.submit 'Buscar', class: 'btn btn-primary' %>
+  </div>
+<% end %>

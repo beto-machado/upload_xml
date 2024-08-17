@@ -10,7 +10,13 @@ Rails.application.routes.draw do
   resources :documents, only: [:new, :create] do
     resources :reports, only: [:show]
   end
-  get "reports", to: "reports#index"
+
+  resources :reports, only: [:index] do
+    member do
+      get :export_to_csv
+    end
+  end
+
   devise_for :users
   
   mount Sidekiq::Web, at: "sidekiq"

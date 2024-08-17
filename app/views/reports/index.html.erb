@@ -1,6 +1,7 @@
-<%= link_to 'Criar Documento', new_document_path, class: 'btn btn-primary' %>
 
 <h1>Documentos</h1>
+
+<%= render 'search_form', q: @q %>
 
 <table>
   <thead>
@@ -24,10 +25,14 @@
         <td><%= JSON.parse(xml_document.emit)["xNome"] %></td>
         <td><%= JSON.parse(xml_document.dest)["xNome"] %></td>
         <td>
-          <%= link_to 'Mostrar', document_report_path(xml_document.document_id, xml_document.id) %>
-        </td>
+          <%= link_to 'Mostrar', document_report_path(xml_document.document_id, xml_document.id), class: 'btn btn-primary' %>
+          <%= link_to 'Exportar', export_to_csv_report_path(xml_document.id), class: 'btn btn-primary' %>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<div class="pagination">
+  <%= paginate @xml_documents %>
+</div>
 

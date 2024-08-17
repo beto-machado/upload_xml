@@ -1,5 +1,6 @@
-<%= link_to 'Voltar para Documentos', reports_path, class: 'btn btn-primary' %>
 <h1>Relatório do Documento Fiscal</h1>
+<%= link_to 'Exportar', export_to_csv_report_path(@xml_document.id), class: 'btn btn-primary' %>
+
 
 <h2>Dados do Documento Fiscal</h2>
 <p>
@@ -72,6 +73,7 @@
   <%= products.sum { |p| (p['qCom'].to_f * p['vUnCom'].to_f).round(2) } %><br>
   <strong>Total ICMS:</strong>
   <%= products.sum { |p| (p['imposto']['ICMS'].to_f rescue 0.0) }.round(2) %><br>
+  <strong>Total IPI:</strong>
   <%= products.sum { |p| (p['imposto']['IPI'].to_f rescue 0.0) }.round(2) %><br>
 </p>
 
