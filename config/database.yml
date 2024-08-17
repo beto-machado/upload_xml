@@ -83,5 +83,6 @@ test:
 #
 production:
   <<: *default
+  database: upload_xml_production
   url: <%= ENV['DATABASE_URL'] %>
 
