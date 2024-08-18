@@ -1,5 +1,3 @@
-require 'csv'
-
 class ReportsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_xml_document, only: [:show, :export_to_csv]

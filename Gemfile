@@ -56,8 +56,12 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   gem "byebug"
   gem 'rspec-rails', '~> 6.0.0'
+  gem 'rails-controller-testing'
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers', '~> 5.0'
+  gem 'simplecov', require: false
 end
 
 group :development do
