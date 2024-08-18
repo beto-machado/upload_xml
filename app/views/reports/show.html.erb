@@ -16,7 +16,7 @@
   <% emit = JSON.parse(@xml_document.emit) %>
   <strong>Eminente:</strong> <%= emit["xNome"] %><br>
   <strong>CNPJ:</strong> <%= emit["CNPJ"] %><br>
-  <strong>CNPJ:</strong> <%= emit["fone"] %><br>
+  <strong>Telefone:</strong> <%= emit["fone"] %><br>
   <strong>Endereço:</strong> <%= emit["enderEmit"]["xLgr"]%>, <%= emit["enderEmit"]["nro"] %>, <%= emit["enderEmit"]["xBairro"] %><br>
   <strong>Cidade:</strong> <%= emit["enderEmit"]["xMun"] %><br>
   <strong>Estado:</strong> <%= emit["enderEmit"]["UF"] %><br>
@@ -29,6 +29,7 @@
   <% dest = JSON.parse(@xml_document.dest) %>
   <strong>Destinatário:</strong> <%= dest["xNome"] %><br>
   <strong>CNPJ:</strong> <%= dest["CNPJ"] %><br>
+  <strong>Telefone:</strong> <%= emit["fone"] %><br>
   <strong>Endereço:</strong> <%= dest["enderDest"]["xLgr"]%>, <%= dest["enderDest"]["xBairro"] %><br>
   <strong>Cidade:</strong> <%= dest["enderDest"]["xMun"] %><br>
   <strong>Estado:</strong> <%= dest["enderDest"]["UF"] %><br>
