@@ -1,7 +1,6 @@
 databases:
   - name: postgres
     ipAllowList: []
-    databaseName: upload-xml-production
     plan: free
 
 services:
